@@ -43,7 +43,7 @@ app.get('/comments/:id', (req, res) => {
   //   res.json(allComments);
   // })
   
-});
+// });
 
 // app.get('/comments/:id', (req, res) => {
   
