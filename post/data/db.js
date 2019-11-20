@@ -1,66 +1,84 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const uri =
+  'mongodb+srv://hend:sleepyash@cluster0-ozydj.mongodb.net/TheVerge?retryWrites=true&w=majority';
+// const uri = process.env.mongoURI || config.mongoURI;
 
-//--------------Auther db schema-----------
-const AutherSchema = Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
+// DB connection
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    dbName: 'TheVerge'
+  })
+  .catch((error) => console.log('this is error!', error));
+const { connection } = mongoose;
+connection.once('open', () => {
+  console.log('MongoDB database connection established successfully!');
 });
-const Auther = mongoose.model('auther', AutherSchema);
 
+// the Author schema
+const authorSchema = mongoose.Schema({
+  id: { type: Number, unique: true },
+  name: { type: String },
+  password: { type: String },
+  email: { type: String, unique: true },
+  imgUrl: { type: String }
+});
 
-//--------------Article db schema-------------
-const ArticleSchema = Schema({
-    auth_id: {
-        type: String,
-        required: true
-    },
+// the Article schema
+const articleSchema = mongoose.Schema({
+  id: { type: Number, unique: true },
+  authorId: { type: Number },
+  title: { type: String },
+  summary: { type: String },
+  imgUrl: { type: String },
+  body: { type: String },
+  topic: { type: String },
+  createdAt: { type: Date, default: Date.now },
+  comments: { type: Array }
+});
 
-    title: {
-        type: String,
-        required: true
-    },
-    sammary: {
-        type: String,
-        required: true
-    },
-    img_url: {
-        type: String
-    },
-    body: {
-        type: String,
-        required: true
-    },
-    topic: {
-        type: String,
-        required: true
-    },
-    date: {
-        type: Date,
-        default: Date.now
+// creating the models
+const Author = mongoose.model('Author', authorSchema);
+const Article = mongoose.model('Article', articleSchema);
+
+// get the document that matches the given id
+const selectById = function(model, id, callback) {
+  model.find({ id: id }, (err, result) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
     }
-})
-const Article = mongoose.model('article', ArticleSchema);
+  });
+};
 
-//------------------Next topics db schema------------
-const NextTopic = Schema({
-    title: {
-        type: String,
-        require: true
-    },
-    title_url: {
-        type: String,
-        require: true
-    }
-})
-const Topic = mongoose.model('topic', NextTopic);
+const selectAll = function(model, callback, id) {
+  if (id) {
+    // console.log("from data id: ", id);
+    model.find({ id: id }, (err, result) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        // console.log("the data is: ", result);
+        callback(null, result);
+      }
+    });
+  } else {
+    model
+      .find({}, (err, result) => {
+        if (err) {
+          callback(err, null);
+        } else {
+          callback(null, result);
+        }
+      })
+      .limit(5);
+  }
+};
 
-module.exports.Auther = Auther;
+module.exports.selectAll = selectAll;
+module.exports.selectById = selectById;
 module.exports.Article = Article;
-module.exports.Topic = Topic;
+module.exports.Author = Author;
