@@ -1,102 +1,183 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const faker = require('faker');
+const fetch = require('node-fetch');
 
-//--------------Auther db schema-----------
-const AutherSchema = Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    }
+// const config = require("../config.js");
+const uri =
+  'mongodb+srv://hend:sleepyash@cluster0-ozydj.mongodb.net/TheVerge?retryWrites=true&w=majority';
+// const uri = process.env.mongoURI || config.mongoURI;
+
+// DB connection
+mongoose
+  .connect(uri, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    dbName: 'TheVerge'
+  })
+  .catch((error) => console.log('this is error!', error));
+const { connection } = mongoose;
+connection.once('open', () => {
+  console.log('MongoDB database connection established successfully!');
 });
-const Auther = mongoose.model('auther', AutherSchema);
 
-
-//--------------Article db schema-------------
-const ArticleSchema = Schema({
-    auth_id: {
-        type: String,
-        required: true
-    },
-
-    title: {
-        type: String,
-        required: true
-    },
-    sammary: {
-        type: String,
-        required: true
-    },
-    img_url: {
-        type: String
-    },
-    body: {
-        type: String,
-        required: true
-    },
-    topic: {
-        type: String,
-        required: true
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    }
-})
-const Article = mongoose.model('article', ArticleSchema);
-
-//------------------Next topics db schema------------
-const NextTopic = Schema({
-    title: {
-        type: String,
-        require: true
-    },
-    title_url: {
-        type: String,
-        require: true
-    }
-})
-const Topic = mongoose.model('topic', NextTopic);
-var dealSchema = mongoose.Schema({
-    img_url: {type: String, trim:true, unique: true},
-    title: {type: String, trim:true, unique: true}
-  });
-  
-var Deal = mongoose.model('Deal', dealSchema);
-
-const commentSchema = Schema({
-	postId: {
-		type: String
-	},
-  profilePic:{
-    type: String
-  },
-  autherName: {
-    type: String
-  } ,
-  createdAt: {
-    type: String,
-    // default: Date.now
-  },
-  body:{
-    type: String
-  } 
+// the Author schema
+const authorSchema = mongoose.Schema({
+  id: { type: Number, unique: true },
+  name: { type: String },
+  password: { type: String },
+  email: { type: String, unique: true },
+  imgUrl: { type: String }
 });
-const CommentModel = mongoose.model('comments', commentSchema);
 
-const RecomSchema = mongoose.Schema({
-    title: String,
-    img_url: String
+// the Article schema
+const articleSchema = mongoose.Schema({
+  id: { type: Number, unique: true },
+  authorId: { type: Number },
+  title: { type: String },
+  summary: { type: String },
+  imgUrl: { type: String },
+  body: { type: String },
+  topic: { type: String },
+  createdAt: { type: Date, default: Date.now },
+  comments: { type: Array }
+});
+
+// creating the models
+const Author = mongoose.model('Author', authorSchema);
+const Article = mongoose.model('Article', articleSchema);
+
+// get all model documents
+const selectAllDocuments = function(model, callback) {
+  model.find({}, (err, result) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
+    }
   });
+};
 
- const RecomModel =  mongoose.model("articles", RecomSchema);
-  
-module.exports.RecomModel = RecomModel;
-module.exports.CommentModel = CommentModel;  
-module.exports.Deal=Deal;
-module.exports.Auther = Auther;
+// get the document that matches the given id
+const selectById = function(model, id, callback) {
+  model.find({ id: id }, (err, result) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
+    }
+  });
+};
+
+// selectAll for articles
+const selectAll = function(model, callback, id) {
+  if (id) {
+    // console.log("from data id: ", id);
+    model.find({ id: id }, (err, result) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        // console.log("the data is: ", result);
+        callback(null, result);
+      }
+    });
+  } else {
+    model
+      .find({}, (err, result) => {
+        if (err) {
+          callback(err, null);
+        } else {
+          callback(null, result);
+        }
+      })
+      .limit(5);
+  }
+};
+
+// Unsplash Api for images
+/*
+  const imagesUrls = [];
+  function getImagesFromUnsplashAPI(keyword) {
+    let clientId =
+      '53940e6af05754ad074705eeff5bbeb467126faf17a4d94d8499480d1ce46231';
+    let url = `https://api.unsplash.com/search/photos/?client_id=${clientId}&per_page=25&query=${keyword}`;
+    fetch(url)
+      .then((data) => {
+        return data.json();
+      })
+      .then((data) => {
+        data.results.map((element) => {
+          imagesUrls.push(element.urls.regular);
+        });
+      });
+  }
+  getImagesFromUnsplashAPI('tech');
+  getImagesFromUnsplashAPI('technology');
+  getImagesFromUnsplashAPI('computer');
+  getImagesFromUnsplashAPI('mobile');
+*/
+
+/*
+  function generateRandomComments() {
+    const commentsArray = [];
+    let commentItem = {};
+    for (let i = 1; i < Math.random() * 5 + 1; ++i) {
+      commentItem['id'] = i;
+      commentItem['userId'] = Math.floor(Math.random() * 100 + 1); // logged in user so we can get their photo and name using this id
+      commentItem['text'] = faker.lorem.sentence();
+      commentItem['date'] = faker.date.between('2019-10-31', '2019-11-22');
+      commentsArray.push(commentItem);
+      commentItem = {};
+    }
+    return commentsArray;
+  }
+*/
+
+/****** Save to Database ******/
+
+// const saveArticles = function() {
+//   for (let i = 1; i <= 100; i += 1) {
+//     const art = new Article({
+//       id: i,
+//       authorId: Math.floor(Math.random() * 100 + 1),
+//       title: faker.company.companyName(),
+//       summary: faker.hacker.phrase(),
+//       imgUrl: imagesUrls[i],
+//       body: faker.lorem.paragraphs(
+//         (paragraph_count = Math.floor(Math.random() * 14 + 8))
+//       ),
+//       topic: faker.hacker.noun(),
+//       createdAt: faker.date.past(),
+//       comments: generateRandomComments()
+//     });
+//     // console.log(art);
+//     art.save();
+//   }
+//   console.log('ALL WAS ADDED');
+// };
+
+// setTimeout(function() {
+//   saveArticles();
+// }, 5000);
+
+// const saveAuthor = function() {
+//   for (let i = 1; i <= 100; i += 1) {
+//     const author = new Author({
+//       id: i,
+//       name: faker.name.findName(),
+//       password: faker.internet.password(),
+//       email: faker.internet.email(),
+//       imgUrl: faker.internet.avatar()
+//     });
+//     author.save();
+//   }
+//   console.log('ALL WAS ADDED');
+// };
+
+// saveAuthor();
+
+module.exports.selectAll = selectAll;
+module.exports.selectAllDocuments = selectAllDocuments;
+module.exports.selectById = selectById;
+module.exports.Author = Author;
 module.exports.Article = Article;
-module.exports.Topic = Topic;
