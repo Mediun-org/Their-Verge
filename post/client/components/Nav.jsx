@@ -19,38 +19,38 @@ export default class Nav extends Component {
           </div>
           <ul id='main-ul'>
             <li>
-              <a class='active' href='#'>
-                TECH <span class='arrow-down'></span>
+              <a className='active' href='#'>
+                TECH <span className='arrow-down'></span>
               </a>
             </li>
             <li>
               <a href='#'>
-                REVIEWS <span class='arrow-down'></span>
+                REVIEWS <span className='arrow-down'></span>
               </a>
             </li>
             <li>
               <a href='#'>
-                SCIENCE <span class='arrow-down'></span>
+                SCIENCE <span className='arrow-down'></span>
               </a>
             </li>
             <li>
               <a href='#'>
-                CREATORS <span class='arrow-down'></span>
+                CREATORS <span className='arrow-down'></span>
               </a>
             </li>
             <li>
               <a href='#'>
-                ENTERTAINMENT <span class='arrow-down'></span>
+                ENTERTAINMENT <span className='arrow-down'></span>
               </a>
             </li>
             <li>
               <a href='#'>
-                VIDEO <span class='arrow-down'></span>
+                VIDEO <span className='arrow-down'></span>
               </a>
             </li>
             <li>
               <a href='#'>
-                MORE <span class='arrow-down'></span>
+                MORE <span className='arrow-down'></span>
               </a>
             </li>
           </ul>
@@ -65,12 +65,12 @@ export default class Nav extends Component {
               <FaRss />
             </li>
           </ul>
-          <div class='user-icon'>
+          <div className='user-icon'>
             <a href='#'>
               <FaUserAlt />
             </a>
           </div>
-          <div class='user-icon'>
+          <div className='user-icon'>
             <a href='#'>
               <FaSearch />
             </a>
