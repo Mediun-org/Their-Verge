@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Post from './components/Post.jsx';
 import Nav from './components/Nav.jsx';
-import Next from './components/Next.jsx';
 import '../public/style.css';
 
 class Article extends React.Component {
@@ -55,7 +54,6 @@ class Article extends React.Component {
             {/* <h2>{this.state.auth.name}</h2> */}
             <Nav />
             <Post topic={this.state.articls} auth={this.state.auth} />
-            {/* <Post auth={this.state.auth} /> */}
             {/* <Next article={this.state.articls} />{' '} */}
           </>
         )}
