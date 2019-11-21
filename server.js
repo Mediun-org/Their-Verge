@@ -1,79 +1,60 @@
-var express = require("express");
+var express = require('express');
 var request = require('request');
-var path = require("path");
+var path = require('path');
 var http = require('http');
 const app = express();
 const port = process.env.PORT || 3000;
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
+const db = require('./data/db.js');
+const Article = db.Article;
+const Author = db.Author;
 
-
-const Article = require("./data/db.js").Article;
-const Auther = require("./data/db.js").Auther;
-var dbDeals = require('./data/db.js').Deal;
-const CommentDB = require('./data/db.js');
-var RecomModel = require('./data/db.js');
-//------DataBase---------------------
-const URI = require('./config/keys').mongoURI;
-mongoose.connect(URI, {
-  useUnifiedTopology: true,
-  useNewUrlParser: true
-});
-//-------DB Connect-------------------
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-
-  console.log("we're connected!");
-});
-app.use(express.static(path.join(__dirname, "/")));
 //----------post----------------
-app.get("/article/:id", (req, res) => {
-  var auth_id = "5dc9b092a15d1f8a5d3fd345";
+app.get('/article/:id', (req, res) => {
   var id = req.params.id;
-  Promise.all([
-    Article.find({auth_id: auth_id}).limit(5),
-    Article.find({_id: id}),
-    Auther.find({_id: auth_id})
-  ]).then(authers => res.json(authers))
-  
-});
-//-----------deals-------
-app.get('/deals/', (req, res) => {
-  dbDeals.find({}).limit(3)
-  .then(deals => res.json(deals))
-  .catch(err => res.status(400).json('error',err));
+  console.log('the id in post is: ', id);
+  var arr = [];
+  db.selectAll(
+    Article,
+    (err, art) => {
+      console.log('Hendd', art[0]);
+      arr.push(art[0]);
+      db.selectAll(
+        Author,
+        (err, author) => {
+          arr.push(author[0]);
+          db.selectAll(Article, (err, arts) => {
+            arr.push(arts);
+            console.log('this the arr in server: ', arr);
+            res.status(202).send(arr);
+          });
+        },
+        art[0].authorId
+      );
+    },
+    id
+  );
 });
 
 //---------------Comments----------------
 app.get('/comments/:id', (req, res) => {
   var id = req.params.id;
-  console.log(id);
-  CommentDB.CommentModel.find({postId: id }, function(err, data){
+  CommentDB.selectById(CommentDB.Article, id, function(err, data) {
     if (err) {
-      console.log('Error');
+      console.log(err);
+    } else {
+      console.log(data);
+      res.json(data);
     }
-    res.json(data);
-  })
- });
-//---------------recom------------------
- app.get("/recom/:id", (req, res) => {
-  const id = req.params.id;
-  Article.find({ _id: id }, { topic: 1 })
-    .then(data => {
-      var searchedTopic = data[0].topic;
-      Article.find({ topic: searchedTopic })
-        .limit(6)
-        .then(data => {
-          res.json(data);
-        })
-        .catch(err => console.log(err));
-    })
-    .catch(err => console.log("Error : " + err));
- 
- });
+  });
+});
 
+//--------------------------------------
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/index.html'));
+});
 app.listen(port, () => {
   console.log(`server running at: http://localhost:${port}`);
 });
