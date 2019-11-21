@@ -54,11 +54,15 @@ export default class Post extends Component {
           <div className='left-main-contant'>
             <div>
               <img
+                // src={
+                //   this.props.topic.length ? this.props.topic[0].img_url : null
+                // }
                 src={this.props.topic.imgUrl}
                 className='img-topic'
               ></img>
             </div>
             <p id='page-topic'>
+              {/* {this.props.topic.length ? this.props.topic[0].body : null} */}
               {this.props.topic.body}
             </p>
           </div>
