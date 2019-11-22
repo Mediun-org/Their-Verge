@@ -38,7 +38,6 @@ class AddComment extends React.Component {
   }
 
   sendComment() {
-    var that = this;
     console.log(window.location.href);
     var path = window.location.href.split('=');
     var id = parseInt(path[1]);
