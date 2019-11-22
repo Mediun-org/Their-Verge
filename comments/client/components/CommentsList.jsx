@@ -1,30 +1,21 @@
-import React from "react";
+import React from 'react';
 // import $ from "jquery";
 import Comment from './Comment.jsx';
 
-
 class CommentsList extends React.Component {
   constructor(props) {
-  	super(props);
-  	// this.state = {
-
-  	// };
-
+    super(props);
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <div>
-
-				{this.props.comments.map((comment , index) =>
-					<Comment key={index} comment ={comment} ></Comment>
-				)}
-				
+        {this.props.comments.map((comment, index) => (
+          <Comment key={index} comment={comment}></Comment>
+        ))}
       </div>
-            
-    )
-	}
-	
+    );
+  }
 }
 
 export default CommentsList;
