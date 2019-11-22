@@ -8,12 +8,12 @@ export default class Next extends Component {
     render() {
         return (
             <div>
-                <div class="main-contaner">
-                    <div class="left-main-contant">
-                        <div class="corner-border-next">
+                <div className="main-contaner">
+                    <div className="left-main-contant">
+                        <div className="corner-border-next">
                             <h2 corner-border-next>NEXT UP IN TECH</h2>
                         </div>
-                        <ul class="next-list">
+                        <ul className="next-list">
                             {this.props.article.map(item => {
                                return <li key={item._id}><a href="#">{item.title}</a></li>
                             })}

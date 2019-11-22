@@ -6,30 +6,29 @@ export default class Post extends Component {
     super(props);
   }
   render() {
+    var monthes = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var formatted = new Date(this.props.topic.createdAt);
+    var theDate = monthes[formatted.getMonth()] + " " + formatted.getDate() + "," + formatted.getFullYear() + " . ";
     return (
       <div>
-        <div class='main-contaner'>
-          <ul class='related-topic'>
-            <li class='corner-border'>
-              <a href='#'>{this.props.auth.email}</a>
+        <div className='main-contaner'>
+          <ul className='related-topic'>
+            <li className='corner-border'>
+              <a href="#">TOPIC</a>
             </li>
-            <li class='corner-border'>
-              <a href='#'>TECH</a>
+            <li className='corner-border'>
+              <a href='#'>{this.props.topic.topic}</a>
             </li>
           </ul>
-          {/* {this.props.topic.length ? (
-            <h1 id='page-title'>{this.props.topic[0].title}</h1>
-          ) : null} */}
-          {/* <p id='entry-summary'>{this.props.topic.sammary}</p> */}
+          <h1 id='page-title'>{this.props.topic.title}</h1>
+          <p id='entry-summary'>{this.props.topic.sammary}</p>
           <div>
-            <span class='page-creater'> By </span>
-            {/* {this.props.auth.length ? (
-              <span class='page-creater page-creater-pink'>
+            <span className='page-creater'> By </span>
+            <span className='page-creater page-creater-pink'>
                 {' '}
-                {this.props.auth[0].name}{' '}
+                {this.props.auth.name}{' '}
               </span>
-            ) : null} */}
-            <span class='page-creater'> Nov 2, 2019, 3:22pm EDTs </span>
+            <span className='page-creater'> {theDate} </span>
           </div>
           <ul id='user-contact'>
             <li>
@@ -43,17 +42,15 @@ export default class Post extends Component {
               </a>
             </li>
           </ul>
-          <div class='left-main-contant'>
+          <div className='left-main-contant'>
             <div>
               <img
-                // src={
-                //   this.props.topic.length ? this.props.topic[0].img_url : null
-                // }
-                class='img-topic'
+                src={this.props.topic.imgUrl}
+                className='img-topic'
               ></img>
             </div>
             <p id='page-topic'>
-              {/* {this.props.topic.length ? this.props.topic[0].body : null} */}
+              {this.props.topic.body}
             </p>
           </div>
         </div>
