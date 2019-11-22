@@ -86,7 +86,7 @@ export default class Nav extends Component {
     if (Cookies.get('token')) {
       const token = Cookies.get('token');
       if (token) {
-        var decoded = JWT.verify(token, "it's_MySecret_ok");
+        var decoded = JWT.verify(token, process.env.jwtSecret);
         this.setState({ user: decoded.name });
       }
     }

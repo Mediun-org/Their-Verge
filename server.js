@@ -8,13 +8,14 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const dotenv = require('dotenv');
 const db = require('./data/db.js');
 const Article = db.Article;
 const Author = db.Author;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+dotenv.config();
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -45,7 +46,7 @@ app.post('/signup', (req, res) => {
         newUser.save().then(user => {
           jwt.sign(
             { name: user.name },
-            "it's_MySecret_ok",
+            process.env.jwtSecret,
             { expiresIn: 3600 },
             (err, token) => {
               if (err) throw err;
@@ -85,7 +86,7 @@ app.post('/signin', (req, res) => {
 
       jwt.sign(
         { name: user.name },
-        "it's_MySecret_ok",
+        process.env.jwtSecret,
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
