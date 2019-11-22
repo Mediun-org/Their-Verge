@@ -17,6 +17,16 @@ connection.once('open', () => {
   console.log('MongoDB database connection established successfully!');
 });
 
+// the Author schema
+const authorSchema = mongoose.Schema({
+  id: { type: Number, unique: true },
+  name: { type: String },
+  password: { type: String },
+  email: { type: String, unique: true },
+  imgUrl: { type: String }
+});
+
+// the Article schema
 const articleSchema = mongoose.Schema({
   id: { type: Number, unique: true },
   authorId: { type: Number },
@@ -29,6 +39,8 @@ const articleSchema = mongoose.Schema({
   comments: { type: Array }
 });
 
+// creating the models
+const Author = mongoose.model('Author', authorSchema);
 const Article = mongoose.model('Article', articleSchema);
 
 // get all model documents
@@ -56,3 +68,4 @@ const selectById = function(model, id, callback) {
 module.exports.selectAll = selectAll;
 module.exports.selectById = selectById;
 module.exports.Article = Article;
+module.exports.Author = Author;
