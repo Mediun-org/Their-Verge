@@ -1,130 +1,144 @@
-*, :after, :before {
-    box-sizing: border-box;
-    text-decoration: inherit;
-    vertical-align: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    font-style: inherit;
-    line-height: inherit;
-    margin: 0;
-    padding: 0;
+*,
+:after,
+:before {
+  box-sizing: border-box;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
 }
 /* div {
     display: block;
 } */
 .mainDiv {
-    margin-bottom: 1.56rem;
-    padding: 0;
-    /* display: flex; */
-    flex-direction: row;
-    flex-wrap: nowrap;
-    /* margin: 16px 0 0; */
-    margin: 0 auto;
-    text-size-adjust: 100%;
-    justify-content: center;
-    width: 50%;
-    margin-left:20%;
-    max-width: 1100px;
+  margin-bottom: 1.56rem;
+  padding: 0;
+  /* display: flex; */
+  flex-direction: row;
+  flex-wrap: nowrap;
+  /* margin: 16px 0 0; */
+  margin: 0 auto;
+  text-size-adjust: 100%;
+  justify-content: center;
+  width: 50%;
+  margin-left: 20%;
+  max-width: 1100px;
 }
 
 .mainSection {
-    margin: 30px 0 30px 10px;
-    min-width: 0;
-    width: 70%;
-    float: left;
+  margin: 30px 0 30px 10px;
+  min-width: 0;
+  width: 70%;
+  float: left;
 }
 
 .commentsHeader {
-    margin-bottom: 8px;
+  margin-bottom: 8px;
 }
 
 .commentsCount {
-    font-family: "Heroic",Arial Narrow,Helvetica,sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    letter-spacing: .05em;
-    line-height: normal;
-    text-transform: uppercase;
-    font-size: 1.9em;
+  font-family: 'Heroic', Arial Narrow, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  line-height: normal;
+  text-transform: uppercase;
+  font-size: 1.9em;
 }
 
 .commentslist {
-    width: auto;
+  width: auto;
 }
 
 .commentslist {
-    border-top: 1px solid #e7e7e8;
-    border-left: 1px solid #d9d9d9;
-    border-right: 1px solid #d9d9d9;
-    /* width: 100%; */
-    overflow: hidden;
+  border-top: 1px solid #e7e7e8;
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  /* width: 100%; */
+  overflow: hidden;
 }
 
 .commentItem {
-    border-bottom: 1px solid #e7e7e8;
-    border-left: 3px solid #e7e7e8;
-    min-height: 48px;
-    padding: 16px;
-    position: relative;
-    transition: background-color .2s;
+  border-bottom: 1px solid #e7e7e8;
+  border-left: 3px solid #e7e7e8;
+  min-height: 48px;
+  padding: 16px;
+  position: relative;
+  transition: background-color 0.2s;
 }
 
 .commentItemHeader {
-    line-height: 1;
-    position: relative;
-    margin-bottom: 8px;
+  line-height: 1;
+  position: relative;
+  margin-bottom: 8px;
 }
 
-.autherAvatar{
-    display: inline-block;
-    vertical-align: middle;
-    height: 32px;
-    width: 32px;
-    
+.autherAvatar {
+  display: inline-block;
+  vertical-align: middle;
+  height: 32px;
+  width: 32px;
 }
 
 .commentItemHeader img {
-    border: 0;
-    max-width: 100%;
-    cursor: pointer;
+  border: 0;
+  max-width: 100%;
+  cursor: pointer;
 }
 
 .commentItem a {
-    color: #e2127A;
-    font-size: 12px;
-    font-weight: bold;
-    font-family: Helvetica, sans-serif;
-    margin-left: 3px;
-    
+  color: #e2127a;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  margin-left: 3px;
 }
 
 .commentItemHeader h5 {
-    display: inline-block;
-    margin-right: 4px;
-    transition: color .1s,background-color .1s,fill .1s;
-    color: #e2127A; 
-    background-color: transparent;
-    cursor: pointer;
-    /* text-rendering: optimizeLegibility; */
-    /* vertical-align: inherit; */
-    margin-left: 8px;
-    font-size: 18px;
-    font-family: Helvetica, sans-serif;
-    font-weight: normal;
+  display: inline-block;
+  margin-right: 4px;
+  transition: color 0.1s, background-color 0.1s, fill 0.1s;
+  color: #e2127a;
+  background-color: transparent;
+  cursor: pointer;
+  /* text-rendering: optimizeLegibility; */
+  /* vertical-align: inherit; */
+  margin-left: 8px;
+  font-size: 18px;
+  font-family: Helvetica, sans-serif;
+  font-weight: normal;
 }
-.commentItem p{
-    font-size: 13px;
-    color: #424242;
+.commentItem p {
+  font-size: 13px;
+  color: #424242;
 }
 
 .commentbody {
-    margin: 8px 0;
-    display: block;
-    margin-block-start: 1em;
-    margin-block-end: 1em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-family: Helvetica, sans-serif;
-    font-size: 13px;
-    color: #424242;
+  margin: 8px 0;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-family: Helvetica, sans-serif;
+  font-size: 13px;
+  color: #424242;
+}
+
+.addComment {
+  margin-top: 20px;
+  text-align: center;
+}
+.addComment input {
+  width: 100%;
+  height: 80px;
+}
+.addComment button {
+  margin-top: 5px;
+  padding: 12px;
+  border-radius: 3px;
 }
