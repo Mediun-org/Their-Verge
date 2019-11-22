@@ -29,9 +29,7 @@ class Article extends React.Component {
   retriveData() {
     var that = this;
     var path = window.location.href.split('=');
-    // console.log(path);
     var article_id = parseInt(path[1]);
-    // console.log(article_id);
     $.ajax({
       url: '/article/' + article_id,
       method: 'GET',
@@ -51,7 +49,6 @@ class Article extends React.Component {
       <div>
         {this.state.auth.length === 0 ? null : (
           <>
-            {/* <h2>{this.state.auth.name}</h2> */}
             <Nav />
             <Post topic={this.state.articls} auth={this.state.auth} />
             {/* <Next article={this.state.articls} />{' '} */}
