@@ -1,2 +1,3 @@
 node_modules
-THE-VERGE/node_modules
+.env
+env
