@@ -3,7 +3,9 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Post from './components/Post.jsx';
 import Nav from './components/Nav.jsx';
+import Rating from './components/Rating.jsx';
 import '../public/style.css';
+// import { Rating } from 'semantic-ui-react';
 
 class Article extends React.Component {
   constructor(props) {
@@ -52,6 +54,7 @@ class Article extends React.Component {
             <Nav />
             <Post topic={this.state.articls} auth={this.state.auth} />
             {/* <Next article={this.state.articls} />{' '} */}
+            <Rating />
           </>
         )}
       </div>
