@@ -155,7 +155,7 @@ export default class Nav extends Component {
           </ul>
 
           {this.state.user ? (
-            <div class='user-icon'>
+            <div className='user-icon'>
               Welcome{' '}
               <span
                 style={{
@@ -181,7 +181,7 @@ export default class Nav extends Component {
               </Button>
             </div>
           ) : (
-            <div class='user-icon'>
+            <div className='user-icon'>
               <Modal
                 trigger={
                   <Button
