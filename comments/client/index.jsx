@@ -36,6 +36,7 @@ class CommentsModule extends React.Component {
       type: 'GET',
       url: '/comments/' + id,
       success: function(res) {
+        // console.log(res);
         that.updateStatus(res.comments, res.logedInUser);
       }
     });

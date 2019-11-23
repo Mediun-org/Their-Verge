@@ -56,7 +56,7 @@ export default class Nav extends Component {
   signUp() {
     var that = this;
     $.ajax({
-      url: 'http://localhost:3000/signup',
+      url: 'https://peaceful-bayou-89377.herokuapp.com/signup',
       type: 'POST',
       data: that.state.signUp,
       success: function(data) {
@@ -71,7 +71,7 @@ export default class Nav extends Component {
   login() {
     var that = this;
     $.ajax({
-      url: 'http://localhost:3000/signin',
+      url: 'https://peaceful-bayou-89377.herokuapp.com/signin',
       type: 'POST',
       data: {
         email: that.state.login.email,
@@ -93,7 +93,7 @@ export default class Nav extends Component {
   }
 
   logout() {
-    $.get('http://localhost:3000/logout');
+    $.get('https://peaceful-bayou-89377.herokuapp.com/logout');
     window.location.reload();
   }
   render() {
