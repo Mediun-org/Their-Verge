@@ -22,6 +22,7 @@ app.use((req, res, next) => {
   next();
 });
 
+var logedInUser = null;
 //@Signup
 app.post('/signup', (req, res) => {
   const { name, email, password, imgUrl } = req.body;
@@ -90,9 +91,9 @@ app.post('/signin', (req, res) => {
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
-          console.log(token);
           res.cookie('token', token);
           res.redirect('back');
+          logedInUser = [user.id, user.name, user.imgUrl];
           res.json({
             token,
             user: {
@@ -111,6 +112,7 @@ app.post('/signin', (req, res) => {
 
 app.get('/logout', (req, res) => {
   res.clearCookie('token');
+  logedInUser = null;
   res.redirect('back');
 });
 
@@ -165,7 +167,7 @@ app.get('/comments/:id', (req, res) => {
           comments[i]['name'] = result[i]['name'];
           comments[i]['imgUrl'] = result[i]['imgUrl'];
         }
-        res.json(comments);
+        res.json({ comments, logedInUser });
       });
     }
   });

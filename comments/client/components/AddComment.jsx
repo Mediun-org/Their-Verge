@@ -6,7 +6,7 @@ class AddComment extends React.Component {
     super(props);
     this.state = {
       data: {
-        userId: 100,
+        userId: this.props.user[0],
         text: '',
         date: ''
       }
@@ -30,7 +30,7 @@ class AddComment extends React.Component {
 
   handlerNewComment() {
     var newComment = {
-      userId: this.state.data.userId,
+      userId: this.props.user[0],
       text: this.state.data.text,
       date: this.state.data.date
     };
