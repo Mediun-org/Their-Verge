@@ -24,6 +24,7 @@
     "react-dom": "^16.11.0",
     "react-icons": "^3.8.0",
     "request": "^2.88.0",
+    "semantic-ui-react": "^0.88.1",
     "webpack": "^4.41.2"
   },
   "devDependencies": {
