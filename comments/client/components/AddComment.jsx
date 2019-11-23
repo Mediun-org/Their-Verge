@@ -32,7 +32,9 @@ class AddComment extends React.Component {
     var newComment = {
       userId: this.props.user[0],
       text: this.state.data.text,
-      date: this.state.data.date
+      date: this.state.data.date,
+      name: this.props.user[1],
+      imgUrl: this.props.user[2]
     };
     this.props.action(newComment);
   }

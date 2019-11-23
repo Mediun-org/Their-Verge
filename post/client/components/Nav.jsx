@@ -156,7 +156,17 @@ export default class Nav extends Component {
 
           {this.state.user ? (
             <div class='user-icon'>
-              Welcome {this.state.user}
+              Welcome{' '}
+              <span
+                style={{
+                  color: '#e2127a',
+                  fontWeight: 'bold',
+                  fontSize: '16px'
+                }}
+              >
+                {' '}
+                {this.state.user}
+              </span>
               <Button
                 style={{
                   margin: '0px 10px 0px 10px',
