@@ -68,17 +68,17 @@ describe('insert', () => {
 
   it('should insert a doc into collection', async () => {
     const authors = db.collection('authors');
-
+    var x = Date.now();
     const mockAuthor = {
-        id: 505,
+        id: x,
         name: 'notOne',
         password: 'ireallyWannaSleeeep',
-        email: "sooooosleepy@gmail.com",
+        email: `${x}@gmail.com`,
         imgUrl: "http://eskipaper.com/images/blue-space-1.jpg"
     };
     await authors.insertOne(mockAuthor);
 
-    const insertedAuthor = await authors.findOne({id: 505});
+    const insertedAuthor = await authors.findOne({id: x});
     expect(insertedAuthor).toEqual(mockAuthor);
   });
 });
