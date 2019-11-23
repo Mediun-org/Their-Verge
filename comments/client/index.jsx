@@ -14,7 +14,8 @@ class CommentsModule extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: []
+      comments: [],
+      user: null
     };
     this.handler = this.handler.bind(this);
     this.getData = this.getData.bind(this);
@@ -35,14 +36,13 @@ class CommentsModule extends React.Component {
       type: 'GET',
       url: '/comments/' + id,
       success: function(res) {
-        console.log(res);
-        that.updateStatus(res);
+        that.updateStatus(res.comments, res.logedInUser);
       }
     });
   }
 
-  updateStatus(data) {
-    this.setState({ comments: data });
+  updateStatus(data, user) {
+    this.setState({ comments: data, user: user });
   }
 
   handler(newComment) {
@@ -64,7 +64,9 @@ class CommentsModule extends React.Component {
           <div className='commentslist'>
             <CommentsList comments={this.state.comments} />
           </div>
-          <AddComment action={this.handler} />
+          {this.state.user === null ? null : (
+            <AddComment action={this.handler} user={this.state.user} />
+          )}
         </div>
       </div>
     );
